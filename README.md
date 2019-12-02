@@ -1,5 +1,4 @@
 # kamal-27-11-2019
-Installation of Project:-
 
 
 Usage Of the Project:-
