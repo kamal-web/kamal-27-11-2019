@@ -1,24 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var EmpController = require('../controllers/employeeCrud')
+var EmpController = require('../controllers/employee')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-     // Create a new Note
-     router.post('/add', EmpController.create);
+     // Create a new employee
+     router.post('/employee', EmpController.create);
 
-    // Retrieve all Notes
+    // Retrieve EmployeeDetails
     router.get('/employee', EmpController.findAll);
 
-    // Retrieve a single Note with noteId
+    // Retrieve a single EmployeeId with Id
      router.get('/employee/:id', EmpController.findOne);
 
-    // Update a Note with noteId
+    // Update an employee with Id
      router.put('/employee/:id', EmpController.update);
 
-    // Delete a Note with noteId
+    // Delete an Employee with Id
     router.delete('/employee/:id', EmpController.delete);
 
 module.exports = router;
