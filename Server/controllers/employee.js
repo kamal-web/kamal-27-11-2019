@@ -85,7 +85,7 @@ EmpController.prototype.findOne=(req,res)=>{
             res.send(emp);
         }
     }).catch(err => {
-        console.error("Id Not matched",err.message)
+        console.error("values not found",err.message)
         res.status(500).send({
             message: `Error:${err.message}`
         })
