@@ -48,10 +48,10 @@ var isValidArg = function (arg) {
         .then(data => {
             res.send(data);
         }).catch(err => {
+            console.error("values are Not inserted",err.message)
             res.status(500).send({
                 message: err.message || "values are Not inserted"
             })
-            console.log("values are Not inserted",err.message)
         })
     }
  }
@@ -62,10 +62,11 @@ EmpController.prototype.findAll = (req, res) => {
     .then(emp => {
         res.send(emp);
     }).catch(err => {
+        console.error("Detailes are Not retrived",err.message)
         res.status(500).send({
             message: err.message || "Details are not retrived"
         })
-        console.log("values are Not inserted",err.message)
+        
     })
 }
 
@@ -84,10 +85,10 @@ EmpController.prototype.findOne=(req,res)=>{
             res.send(emp);
         }
     }).catch(err => {
+        console.error("Id Not matched",err.message)
         res.status(500).send({
             message: `Error:${err.message}`
         })
-        console.log("values are Not inserted",err.message)
     })
 }
 
@@ -107,10 +108,10 @@ EmpController.prototype.update =(req, res)=> {
             res.send(emp);
         }
     }).catch(err => {
+        console.error("Id not matched",err.message)
         res.status(500).send({
             message: `Error:${err.message}`
         })
-        console.log("values are Not inserted",err.message)
     })
 }
 
@@ -131,10 +132,10 @@ EmpController.prototype.delete = (req, res) => {
             res.status(200).json({data:emp,message:"Successfully Deleted data"});
         }
     }).catch(err => {
+        console.error("Id not matched",err.message)
         res.status(500).send({
             message: `Error:${err.message}`
         })
-        console.log("values are Not inserted",err.message)
     })
 };
 
