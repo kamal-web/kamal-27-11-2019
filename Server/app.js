@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 mongoose.Promise = global.Promise;
+mongoose.set('useFindAndModify', false);
 //Connecting to mongodb database
 (function connect(){
     mongoose.connect(dbConfig.url,{ useNewUrlParser: true, useUnifiedTopology: true })
