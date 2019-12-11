@@ -17,15 +17,14 @@ app.use(bodyParser.json())
 
 mongoose.Promise = global.Promise;
 //Connecting to mongodb database
-function connect(){
+(function connect(){
     mongoose.connect(dbConfig.url,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(
       () => { console.log("Connected to Mongodb Successfull") },
       err => { return err }
     );
-}
-connect()
-mongoose.connection.on('close', connect)
+})()
+//mongoose.connection.on('close', connect)
 mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
 
 
