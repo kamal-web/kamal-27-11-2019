@@ -96,10 +96,10 @@ EmpController.prototype.findOne=(req,res)=>{
 
 //Update Employee
 EmpController.prototype.update =(req, res)=> {
-    const {id:check} =req.params;
-    const {id,name,email,mobile,department,role,salary} = req.body;
-    console.log(req.body)
-    Employee.findOneAndUpdate({check},{id:id,name:name,email:email,department:department,role:role,salary:salary}, {new: true})
+    const {id} =req.params;
+    const {id:eid,name,email,mobile,department,role,salary} = req.body;
+    console.log(id)
+    Employee.findOneAndUpdate({id},{id:eid,name:name,email:email,department:department,role:role,salary:salary}, {new: true})
     .then(emp => {
         if(!emp){
             res.status(500).send({
@@ -114,25 +114,7 @@ EmpController.prototype.update =(req, res)=> {
         res.status(500).send({
             message: `Error:${err.message}`
         })
-    })
-    // Employee.findOne({checkId})
-    //     .then(emp => {
-    //         if(!emp){
-    //             res.status(500).send({
-    //             message:"Id not found, Please Enter valid Id"
-    //             })
-    //         }else{
-    //             res.send(emp);
-    //         }   
-    //     }).catch(err => {
-    //             console.error("values not found",err.message)
-    //             res.status(500).send({
-    //                 message: `Error:${err.message}`
-    //             })
-    //     })
-    // 
-    //console.log(emp.name)
-    
+    })    
 }
 
 //Delete Employee

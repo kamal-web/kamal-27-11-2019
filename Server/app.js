@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var dbConfig = require('./config/dbconfig')
+var config = require('./config/dbconfig')
 
 var app = express();
 
@@ -19,7 +19,7 @@ mongoose.Promise = global.Promise;
 mongoose.set('useFindAndModify', false);
 //Connecting to mongodb database
 (function connect(){
-    mongoose.connect(dbConfig.url,{ useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(config.url,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(
       () => { console.log("Connected to Mongodb Successfull") },
       err => { return err }
