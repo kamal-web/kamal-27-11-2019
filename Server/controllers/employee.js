@@ -19,7 +19,6 @@ var isValidArg = function (arg) {
         });
     }else{
         const {id,name,email,mobile,department,role,salary} = req.body
-        
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
@@ -44,7 +43,7 @@ var isValidArg = function (arg) {
         if(!isValidArg(experience)){
             res.status(402).json({message:"please provide experience"})
         }
-
+        
         const emp = new Employee({id,name,email,mobile,department,role,salary});
         emp.save()
         .then(data => {
