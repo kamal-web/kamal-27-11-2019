@@ -19,6 +19,7 @@ var isValidArg = function (arg) {
         });
     }else{
         const {id,name,email,mobile,department,role,salary} = req.body
+        
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
@@ -43,7 +44,7 @@ var isValidArg = function (arg) {
         if(!isValidArg(experience)){
             res.status(402).json({message:"please provide experience"})
         }
-        
+
         const emp = new Employee({id,name,email,mobile,department,role,salary});
         emp.save()
         .then(data => {
@@ -66,18 +67,16 @@ EmpController.prototype.findAll = (req, res) => {
         console.error("Detailes are Not retrived",err.message)
         res.status(500).send({
             message: err.message || "Details are not retrived"
-        })
-        
+        })   
     })
 }
 
 //Find one Employee
 EmpController.prototype.findOne=(req,res)=>{
     const {id} =req.params;
-    //console.log('id in findOne',id)
+    
     Employee.findOne({id})
     .then(emp => {
-        
         if(!emp){
             res.status(500).send({
                 message:"Id not found, Please Enter valid Id"
@@ -98,7 +97,6 @@ EmpController.prototype.findOne=(req,res)=>{
 EmpController.prototype.update =(req, res)=> {
     const {id} =req.params;
     const {id:eid,name,email,mobile,department,role,salary} = req.body;
-    console.log(id)
     Employee.findOneAndUpdate({id},{id:eid,name:name,email:email,department:department,role:role,salary:salary}, {new: true})
     .then(emp => {
         if(!emp){
