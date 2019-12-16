@@ -18,7 +18,7 @@ var isValidArg = function (arg) {
             message: "Details could not be empty"
         });
     }else{
-        const {id,name,email,mobile,department,role,salary} = req.body
+        const {id,name,email,mobile,department,role,salary,experience} = req.body
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
