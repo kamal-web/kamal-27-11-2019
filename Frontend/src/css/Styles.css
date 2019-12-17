@@ -61,3 +61,22 @@
     font-weight: bold;
     align-self: flex-end;
 }
+.form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    
+}
+.from-block{
+    display:flex;
+    max-width:30%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:30px;
+    padding:20px;
+}
+
+input{
+    width:100%;
+}   

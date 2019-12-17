@@ -19,6 +19,7 @@ var isValidArg = function (arg) {
         });
     }else{
         const {id,name,email,mobile,department,role,salary,experience} = req.body
+        console.log(req.body)
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
@@ -44,7 +45,7 @@ var isValidArg = function (arg) {
             res.status(402).json({message:"please provide experience"})
         }
         
-        const emp = new Employee({id,name,email,mobile,department,role,salary});
+        const emp = new Employee({id,name,email,mobile,department,role,salary,experience});
         emp.save()
         .then(data => {
             res.send(data);
@@ -90,6 +91,20 @@ EmpController.prototype.findOne=(req,res)=>{
             message: `Error:${err.message}`
         })
     })
+}
+
+//Get TotalCtc
+EmpController.prototype.getCtc = (req, res) => {
+    Employee.find()
+    .then(emp => {
+        const total = emp.reduce((acc,emp)=>acc+emp.salary,0)
+        res.send({total});
+    }).catch(err => {
+         console.error("Details are Not retrieved",err.message)
+         res.status(500).send({
+             message: err.message || "Details are not retrieved"
+         })   
+     })
 }
 
 //Update Employee

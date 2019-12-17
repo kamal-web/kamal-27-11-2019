@@ -11,6 +11,9 @@ router.get('/employee', EmpController.findAll);
 // Retrieve a single EmployeeId with Id
 router.get('/employee/:id', EmpController.findOne);
 
+// Retrieve Total ctc
+router.get('/employees/ctc', EmpController.getCtc);
+
 // Update an employee with Id
 router.put('/employee/:id', EmpController.update);
 

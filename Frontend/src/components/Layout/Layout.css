@@ -1,0 +1,12 @@
+
+.content{
+    margin-top: 18px;
+    text-align:center;
+}
+.signup{
+    padding:0 20px 0;
+    border-radius:50px;
+    color:white;
+    background-color:#cc3300;
+    box-shadow: 2px 2px 4px #000000;
+}

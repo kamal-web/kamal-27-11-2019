@@ -1,20 +1,29 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 
 function Dialog(props) {
-    console.log(props)
-    let dialog = (
+    const [data,setData] = useState({})
+
+    useEffect(()=>{
+        setData(props.employee)
+    },[props])
+
+     let dialog = (
         <div className='dialog-box'>
-            <button className='dialog-close'>x</button>
-            <div>{props.employee}</div>
-        </div>)
-    if(!props.isOpen){
-        dialog = null;
-    }
+            <button className='dialog-close' onClick={props.onClose}>x</button>
+            <div>{data.id}--{data.name}--{data.email}</div>
+        </div>
+        )
+     if(!props.isOpen){
+         dialog = null;
+         
+     }
     return(
         <div>
             {dialog}
         </div>
     )
+     
+    
 }
 
 export default Dialog

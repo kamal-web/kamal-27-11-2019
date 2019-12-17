@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import ReactTable from 'react-table'
 import axios from 'axios'
+import {withRouter} from 'react-router-dom'
 import {without} from 'lodash'
 import Dialog from './Dialog'
 import 'react-table/react-table.css'
@@ -9,18 +10,19 @@ import '../css/Styles.css'
 var MyTable =(props)=>{
     const [employeeDetails,setDetails] = useState()
     const [isOpen,setIsopen] = useState(false)
+    const [newEmployee,setNemployee] = useState({})
+
     useEffect(()=>{
-    console.log("props in table",props.employee)
         setDetails(props.employee)
     },[props])
-    //console.log(employeeDetails)
+    
 
     const columns = [
             {
                 Header : "Actions",
                 Cell : props =>{
                     return(
-                        <button style ={{backgroundColor:'white',color:"red",textAlign:'center'}} onClick={viewHandler(props.original)}>View</button>
+                        <button style ={{backgroundColor:'white',color:"red",textAlign:'center'}} onClick={()=>viewHandler(props.original)}>View</button>
                     )
                 },
                 width:100,
@@ -74,7 +76,7 @@ var MyTable =(props)=>{
                 Header : "Actions",
                 Cell : props =>{
                     return(
-                        <button style ={{backgroundColor:'white',color:"red",textAlign:'center'}}>Edit</button>
+                        <button style ={{backgroundColor:'white',color:"red",textAlign:'center'}} onClick={()=>editHandler(props.original)}>Edit</button>
                     )
                 },
                 width:100,
@@ -94,17 +96,20 @@ var MyTable =(props)=>{
             }
         ]
 function viewHandler(emp){
-    setIsopen(true);
-    console.log('in view',isOpen)
-    // return(
-    //     <div>
-    //         <Dialog isOpen={isOpen} employee={emp} />
-    //     </div>
-    // )
+    setIsopen(!isOpen);
+    setNemployee(emp)
 }
-    
+
+function editHandler(emp){
+   
+    console.log(props);
+    console.log(emp)
+    props.history.push({
+        pathname: '/edit',
+        data:{emp}
+    })
+}      
 function deleteHandler(emp){
-    
     const {id} = emp;
     axios.delete(`/employee/${id}`)
          .then(resp=>{
@@ -123,9 +128,10 @@ function deleteHandler(emp){
                     data ={employeeDetails}
                     defaultPageSize = {10}
                 >
-                </ReactTable>
+                </ReactTable> 
+                {newEmployee && Object.keys(newEmployee).length > 0 && <Dialog employee={newEmployee} isOpen={isOpen} onClose={()=>{ setIsopen(!isOpen)}}/>}
             </div>
         )
 }
 
-export default MyTable;
+export default withRouter(MyTable);
