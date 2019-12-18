@@ -11,7 +11,7 @@ const layout = (props)=>{
     return(
         <Aux>
         <div className='Header'>
-            <img src={Logo} alt={Logo} maxWidth='40px'/>
+            <img src={Logo} alt={Logo} max-width='40px'/>
             <button onClick={()=>signupHandler()} className='signup'>Signup</button>
         </div>
         <main className={classes.content}>
