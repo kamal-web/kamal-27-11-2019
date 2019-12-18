@@ -10,7 +10,6 @@ function Employee(){
     const [totalCtc,setCtc] = useState(0);
     const [isOpen,setIsopen] = useState(false)
 
-
     useEffect(() => {
         axios.get('/employee')
             .then(resp=>{
@@ -25,8 +24,7 @@ function Employee(){
                 setCtc(res.data.total)
             }).catch(err=>{
                 console.error(err)
-            })
-        
+            })   
     }, [])
 
      return(

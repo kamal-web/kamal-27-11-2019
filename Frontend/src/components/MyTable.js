@@ -16,7 +16,6 @@ var MyTable =(props)=>{
         setDetails(props.employee)
     },[props])
     
-
     const columns = [
             {
                 Header : "Actions",
@@ -108,41 +107,43 @@ var MyTable =(props)=>{
                 maxWidth:100,
                 minWidth:100
             }
-        ]
-function viewHandler(emp){
-    setIsopen(!isOpen);
-    setNemployee(emp)
-}
+    ]
 
-function editHandler(emp){
-    props.history.push({
-        pathname: '/edit',
-        data:{emp}
-    })
-}      
-function deleteHandler(emp){
-    const {id} = emp;
-    axios.delete(`/employee/${id}`)
-         .then(resp=>{
-             const newEmployee = without(employeeDetails,emp)
-             setDetails(newEmployee);
-         })
-         .catch(err=>{
-             console.error('Error',err)
-         })
-}
+    function viewHandler(emp){
+        setIsopen(!isOpen);
+        setNemployee(emp)
+    }
 
-        return(
-            <div>
-                <ReactTable
-                    columns={columns}
-                    data ={employeeDetails}
-                    defaultPageSize = {10}
-                >
-                </ReactTable> 
-                {newEmployee && Object.keys(newEmployee).length > 0 && <Dialog employee={newEmployee} isOpen={isOpen} onClose={()=>{ setIsopen(!isOpen)}}/>}
-            </div>
-        )
+    function editHandler(emp){
+        props.history.push({
+            pathname: '/edit',
+            data:{emp}
+        })
+    }
+
+    function deleteHandler(emp){
+        const {id} = emp;
+        axios.delete(`/employee/${id}`)
+            .then(resp=>{
+                 const newEmployee = without(employeeDetails,emp)
+                 setDetails(newEmployee);
+             })
+            .catch(err=>{
+                console.error('Error',err)
+            })
+    }
+
+    return(
+        <div>
+            <ReactTable
+                columns={columns}
+                data ={employeeDetails}
+                defaultPageSize = {10}
+            >
+            </ReactTable> 
+            {newEmployee && Object.keys(newEmployee).length > 0 && <Dialog employee={newEmployee} isOpen={isOpen} onClose={()=>{ setIsopen(!isOpen)}}/>}
+        </div>
+    )
 }
 
 export default withRouter(MyTable);

@@ -14,8 +14,7 @@ function Dialog(props) {
         </div>
         )
      if(!props.isOpen){
-         dialog = null;
-         
+         dialog = null;     
      }
     return(
         <div>

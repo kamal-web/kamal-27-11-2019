@@ -19,7 +19,6 @@ var isValidArg = function (arg) {
         });
     }else{
         const {id,name,email,mobile,department,role,salary,experience} = req.body
-        console.log(req.body)
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
