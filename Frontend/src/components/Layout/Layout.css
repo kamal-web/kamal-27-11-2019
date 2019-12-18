@@ -4,9 +4,10 @@
     text-align:center;
 }
 .signup{
+    max-height:40px;
     padding:0 20px 0;
     border-radius:50px;
     color:white;
-    background-color:#cc3300;
+    background-color:blue;
     box-shadow: 2px 2px 4px #000000;
 }

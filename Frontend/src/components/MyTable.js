@@ -45,15 +45,29 @@ var MyTable =(props)=>{
                 }
             },
             {
-                Header : "Project",
-                accessor : "project",
+                Header : "Email",
+                accessor : "email",
                 style:{
                     textAlign:'center'
                 }
             },
             {
-                Header : "Experience",
-                accessor : "exp",
+                Header : "Mobile",
+                accessor : "mobile",
+                style:{
+                    textAlign:'center'
+                }
+            },
+            {
+                Header : "Department",
+                accessor : "department",
+                style:{
+                    textAlign:'center'
+                }
+            },
+            {
+                Header : "Role",
+                accessor : "role",
                 style:{
                     textAlign:'center'
                 }
@@ -66,8 +80,8 @@ var MyTable =(props)=>{
                 }
             },
             {
-                Header : "Blood-Group",
-                accessor : "bloodgroup",
+                Header : "Experience",
+                accessor : "experience",
                 style:{
                     textAlign:'center'
                 }   
@@ -101,9 +115,6 @@ function viewHandler(emp){
 }
 
 function editHandler(emp){
-   
-    console.log(props);
-    console.log(emp)
     props.history.push({
         pathname: '/edit',
         data:{emp}
