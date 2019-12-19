@@ -5,6 +5,7 @@
     max-height:100;
     padding:20px;
     background-color:#645f5f;
+    box-shadow: 0 2px 2px #ccc;
 }
 .Nav-bar{
     display:flex;
@@ -14,7 +15,7 @@
 .nav-list{
     max-width:100;
     font-size:2vw;
-    color:red;
+    color:#fb4034;
     text-shadow: 2px 2px 4px #000000;
 }
 .nav-ctc{

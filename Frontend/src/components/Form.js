@@ -16,7 +16,7 @@ const Form = (props) => {
                 onChange={e => {
                   props.changeHandler(e);
                 }}
-              />
+              required />
             </div>
           );
         })}
