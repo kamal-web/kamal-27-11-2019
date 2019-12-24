@@ -1,9 +1,10 @@
 const Employee =require('../models/schema');
-
+const jwt  = require('jsonwebtoken')
 
 function EmpController(){
 
 }
+
 var isValidArg = function (arg) {
   if (!arg) {
     return false;
@@ -11,8 +12,37 @@ var isValidArg = function (arg) {
   return true;
 };
 
+//Login
+EmpController.prototype.login=(req,res)=>{
+    const {mobile} = req.body;
+    console.log(req.body)
+    //console.log('mobile',mobile);
+    Employee.findOne({mobile})
+    .then(emp => {
+        if(!emp){
+            res.status(500).send({
+                message:"invalid details"
+            })
+        }
+        else{
+            //res.send(emp);
+            jwt.sign({emp},'topSecret',(err,token)=>{
+                res.json({
+                    token
+                })
+            })
+        }
+    }).catch(err => {
+        console.error("values not found",err.message)
+        res.status(500).send({
+            message: `Error:${err.message}`
+        })
+    })
+
+}
+
 //Create Emp
- EmpController.prototype.create = (req,res) => {
+ EmpController.prototype.create =(req,res) => {
      if(!req.body){
         return res.status(400).send({
             message: "Details could not be empty"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter,Redirect } from "react-router-dom";
 import axios from "axios";
 import "../css/Styles.css";
 import Aux from '../hoc/Aux'
@@ -74,7 +74,7 @@ function Signup(props) {
                 props.history.push("/");
           })
           .catch(err => {
-            console.error("2Error", err);
+            console.error("Error", err);
           });
 
     }else{
@@ -91,7 +91,7 @@ function Signup(props) {
   return (
     <div>
       <Aux>
-        {keys && keys.length>0 && <Form myKey={keys} empData={data} submitHandler={(event)=>submitHandler(event)} changeHandler={(e)=>changeHandler(e)}/>}
+        {localStorage.getItem('token') ?<Redirect push to="/admin"/>: (keys && keys.length>0 && <Form myKey={keys} empData={data} submitHandler={(event)=>submitHandler(event)} changeHandler={(e)=>changeHandler(e)}/>)}
       </Aux>
     </div>
     
