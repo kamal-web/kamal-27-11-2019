@@ -15,8 +15,6 @@ var isValidArg = function (arg) {
 //Login
 EmpController.prototype.login=(req,res)=>{
     const {mobile} = req.body;
-    console.log(req.body)
-    //console.log('mobile',mobile);
     Employee.findOne({mobile})
     .then(emp => {
         if(!emp){
