@@ -8,7 +8,8 @@ var EmpSchema = new Schema({
     department:String,
     role:String,
     salary:Number,
-    experience:Number
+    experience:Number,
+    password:String
 },{versionKey: false})
 
 module.exports = mongoose.model('employee',EmpSchema)

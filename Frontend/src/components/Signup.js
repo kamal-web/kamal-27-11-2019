@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter,Redirect } from "react-router-dom";
 import axios from "axios";
 import "../css/Styles.css";
 import Aux from '../hoc/Aux'
@@ -16,7 +16,8 @@ function Signup(props) {
       department: null,
       role: null,
       salary: null,
-      experience:null
+      experience:null,
+      password:null
     };
      key = Object.keys(empData);
   } else {
@@ -35,6 +36,7 @@ function Signup(props) {
   const [role, setRole] = useState(data.role);
   const [salary, setSalary] = useState(data.salary);
   const [experience, setExperience] = useState(data.experience);
+  const [password, setPassword] = useState(data.password);
   
   const changeHandler = e => {
     switch (e.target.name) {
@@ -62,26 +64,29 @@ function Signup(props) {
     case "experience":
         setExperience(e.target.value);
         break;
+    case "password":
+        setPassword(e.target.value);
+        break;
     }
   };
 
   const submitHandler = event => {
     event.preventDefault();
     if(!props.location.data){
-      axios.post("/employee", {id,name,email,mobile,department,role,salary,experience})
+      axios.post("/employee", {id,name,email,mobile,department,role,salary,experience,password})
           .then(resp => {
                 alert('details are saved succesfully')
                 props.history.push("/");
           })
           .catch(err => {
-            console.error("2Error", err);
+            console.error("Error", err);
           });
 
     }else{
-      axios.put(`/employee/${id}`, {id,name,email,mobile,department,role,salary,experience})
+      axios.put(`/employee/${id}`, {id,name,email,mobile,department,role,salary,experience,password})
           .then(resp => {
             alert('details updated successfully')
-            props.history.push("/");
+            props.history.push("/login");
           })
           .catch(err => {
             console.error(err);
@@ -91,7 +96,7 @@ function Signup(props) {
   return (
     <div>
       <Aux>
-        {keys && keys.length>0 && <Form myKey={keys} empData={data} submitHandler={(event)=>submitHandler(event)} changeHandler={(e)=>changeHandler(e)}/>}
+        {localStorage.getItem('token') ?<Redirect push to="/admin"/>: (keys && keys.length>0 && <Form myKey={keys} empData={data} submitHandler={(event)=>submitHandler(event)} changeHandler={(e)=>changeHandler(e)}/>)}
       </Aux>
     </div>
     
