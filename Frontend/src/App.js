@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from 'react';
+import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import Employee from './components/Employee'
@@ -9,7 +9,6 @@ import requireAuth from './components/Auth/Authentication'
 
 
 function App() {
-  //console.log('in app',auth)
   return(
     <div>
         <Layout>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {Redirect} from 'react-router-dom'
 import Aux from '../hoc/Aux'
 import MyTable from './MyTable'
 import Navbar from './Navbar'
@@ -10,23 +9,16 @@ import '../css/Styles.css'
 function Employee(props){
     const [employee,setEmployee] = useState([]);
     const [totalCtc,setCtc] = useState(0);
-    const [isOpen,setIsopen] = useState(false)
 
     useEffect(() => {
-        axios.get('/employee')
-            .then(resp=>{
-                setEmployee(resp.data)
-
-            }).catch(err=>{
-                console.error("Error",err)
-            })
-
-        axios.get('/employees/ctc')
-            .then(res=>{
-                setCtc(res.data.total)
-            }).catch(err=>{
-                console.error(err)
-            })   
+        axios.all([
+            axios.get('/employee'),
+            axios.get('/employees/ctc')
+        ]).then(axios.spread((employeeDetails,total)=>{
+            setEmployee(employeeDetails.data);
+            setCtc(total.data.total);
+        }
+        )).catch(err=> console.log(err))
     }, [])
 
     const logoutHandler =()=>{

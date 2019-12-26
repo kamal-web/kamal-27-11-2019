@@ -125,8 +125,8 @@ var MyTable =(props)=>{
         const {id} = emp;
         axios.delete(`/employee/${id}`)
             .then(resp=>{
-                 const newEmployee = without(employeeDetails,emp)
-                 setDetails(newEmployee);
+                const newEmployee = without(employeeDetails,emp)
+                setDetails(newEmployee);
              })
             .catch(err=>{
                 console.error('Error',err)

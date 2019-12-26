@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import Aux from '../../hoc/Aux'
 import Log from './LoginController'

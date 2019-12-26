@@ -14,7 +14,7 @@ var isValidArg = function (arg) {
 
 //Login
 EmpController.prototype.login=(req,res)=>{
-    const {mobile} = req.body;
+    const {mobile,password} = req.body;
     Employee.findOne({mobile})
     .then(emp => {
         if(!emp){
@@ -23,12 +23,19 @@ EmpController.prototype.login=(req,res)=>{
             })
         }
         else{
-            //res.send(emp);
-            jwt.sign({emp},'topSecret',(err,token)=>{
+            //console.log(emp.password)
+            if(emp.password === password){
+                jwt.sign({emp},'topSecret',(err,token)=>{
                 res.json({
                     token
                 })
             })
+            }else{
+                //alert('Provide valid details')
+                res.status(500).send({
+                    message:"password not matched"
+                })
+            }
         }
     }).catch(err => {
         console.error("values not found",err.message)
@@ -36,7 +43,6 @@ EmpController.prototype.login=(req,res)=>{
             message: `Error:${err.message}`
         })
     })
-
 }
 
 //Create Emp
@@ -46,7 +52,8 @@ EmpController.prototype.login=(req,res)=>{
             message: "Details could not be empty"
         });
     }else{
-        const {id,name,email,mobile,department,role,salary,experience} = req.body
+        console.log(req.body)
+        const {id,name,email,mobile,department,role,salary,experience,password} = req.body
         if(!isValidArg(id)){
             res.status(402).json({message:"please provide id"})
         }
@@ -71,8 +78,11 @@ EmpController.prototype.login=(req,res)=>{
         if(!isValidArg(experience)){
             res.status(402).json({message:"please provide experience"})
         }
+        if(!isValidArg(password)){
+            res.status(402).json({message:"please provide password"})
+        }
         
-        const emp = new Employee({id,name,email,mobile,department,role,salary,experience});
+        const emp = new Employee({id,name,email,mobile,department,role,salary,experience,password});
         emp.save()
         .then(data => {
             res.send(data);
@@ -122,6 +132,18 @@ EmpController.prototype.findOne=(req,res)=>{
 
 //Get TotalCtc
 EmpController.prototype.getCtc = (req, res) => {
+     console.log('in ctc')
+    // console.log('in verify',req.token);
+    // jwt.verify(req.token, 'topSecret',(err,authData)=>{
+    //     console.log('in jwt')
+    //     if(err){
+    //         res.status(403).send({
+    //             message:'Authentication required'
+    //         })
+    //     }else{
+    //         res.send(authData)
+    //     }
+    // })
     Employee.find()
     .then(emp => {
         const total = emp.reduce((acc,emp)=>acc+emp.salary,0)
@@ -137,8 +159,8 @@ EmpController.prototype.getCtc = (req, res) => {
 //Update Employee
 EmpController.prototype.update =(req, res)=> {
     const {id} =req.params;
-    const {id:eid,name,email,mobile,department,role,salary} = req.body;
-    Employee.findOneAndUpdate({id},{id:eid,name:name,email:email,department:department,role:role,salary:salary}, {new: true})
+    const {id:eid,name,email,mobile,department,role,salary,experience,password} = req.body;
+    Employee.findOneAndUpdate({id},{id:eid,name:name,email:email,department:department,role:role,salary:salary,experience:experience,password:password}, {new: true})
     .then(emp => {
         if(!emp){
             res.status(500).send({
